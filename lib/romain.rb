@@ -1,5 +1,8 @@
-class Romain < String
+class Romain
   NUMERALS = {"I" => 1, "V" => 5, "X" => 10, "L" => 50, "C" => 100, "D" => 500, "M" => 1000}
+  def initialize(roman_numeral)
+    @roman_numeral = roman_numeral
+  end
 
   def to_decimal
     number = 0
@@ -8,17 +11,17 @@ class Romain < String
   end
 
   private
-  def thousands?(number = self)
+  def thousands?(number = @roman_numeral)
     number =~ /\(/
   end
 
-  def million?(number = self)
+  def million?(number = @roman_numeral)
     number =~ /\(\(/
   end
 
   def roman_numerals
-    numbers = self.split("\)") if thousands? or million?
-    numbers ||= [self]
+    numbers = @roman_numeral.split("\)") if thousands? or million?
+    numbers ||= [@roman_numeral]
     numbers = numbers.map do |number|
       [number.gsub("\(", ""), calculate_factor(number)]
     end
